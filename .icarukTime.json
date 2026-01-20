@@ -1,10 +1,10 @@
 {
-    "idleHeartbeats": 12181,
-    "navigatingHeartbeats": 2974,
-    "totalCodingHeartbeats": 17426,
+    "idleHeartbeats": 12443,
+    "navigatingHeartbeats": 3042,
+    "totalCodingHeartbeats": 17507,
     "languageHeartbeats": {
         "jsonc": 47,
-        "toml": 3612,
+        "toml": 3693,
         "markdown": 9513,
         "html": 3118,
         "scminput": 832,
@@ -14,7 +14,7 @@
     },
     "fileHeartbeats": {
         ".vscode/settings.json": 47,
-        "hugo.toml": 3440,
+        "hugo.toml": 3521,
         "content/posts/my-first-post.md": 2648,
         "content/about.md": 789,
         "layouts/_default/single.html": 57,

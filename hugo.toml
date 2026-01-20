@@ -1,4 +1,4 @@
-baseURL = 'https://thomas-mewily.github.io/'
+baseURL = 'https://thomas-mewily.github.io/blog/'
 #baseURL = "http://localhost:1313/"
 
 languageCode = 'en-us'
