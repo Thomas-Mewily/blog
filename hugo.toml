@@ -1,5 +1,5 @@
-#baseURL = 'https://thomas-mewily.github.io/website/'
-baseURL = "http://localhost:1313/"
+baseURL = 'https://thomas-mewily.github.io/'
+#baseURL = "http://localhost:1313/"
 
 languageCode = 'en-us'
 title = 'Mewily Website'
