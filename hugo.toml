@@ -20,7 +20,7 @@ author = "Mewily"
   email = "thomas.mewily@gmail.com"
 
 [params.header]
-    logo = "images/logo.png"
+    logo = "images/logo/mewily.png"
     title = ""
 
 [params.footer]

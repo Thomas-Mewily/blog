@@ -16,5 +16,5 @@ categories = ["with-slug"]
 ![svg](./images/hugo-logo-wide.svg "Test for svg")
 
 <p align="center" width="100%">
-    <img src="./images/logo.png">
+    <img src="./images/logo/mewily.png">
 </p>

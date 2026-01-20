@@ -86,7 +86,7 @@ showAuthor = false
 
 [pwa]
   enabled = true
-  icon = "logo.png" # should be in assets
+  icon = "logo/mewily.png" # should be in assets
   icon_sizes = [192, 512]
 
   # will be used as the manifest.json file and merge the default one
