@@ -9,15 +9,20 @@ description = "A Chess inspired game with custom game rule"
 image = "thumbnail.png"
 +++
 
-<iframe frameborder="0" src="https://itch.io/embed/2780275?bg_color=0a7318&amp;link_color=f8fa6b&amp;border_color=054078" width="552" height="167"><a href="https://mewily.itch.io/chessito">ChessIto by Mewily.</a></iframe>
-
-Loading this game can take some time.
+[Play ChessIto on itch.io](https://mewily.itch.io/chessito){target="_blank"} 
 
 <iframe frameborder="0" src="https://itch.io/embed-upload/10700404?color=210033" allowfullscreen="" width="960" height="560"><a href="https://mewily.itch.io/chessito">Play ChessIto on itch.io</a></iframe>
 
-Can be played on Pc and Mobile
+https://mewily.itch.io/chessito
 
 {{< qr text="https://mewily.itch.io/chessito" />}}
+
+Loading this game can take some time.
+
+You can play it directly on [itch.io](https://mewily.itch.io/chessito){target="_blank"}
+
+Can be played on Pc and Mobile
+
 
 
 # Relics
