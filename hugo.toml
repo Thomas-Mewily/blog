@@ -57,11 +57,11 @@ author = "Mewily"
     url = "/pixel_art/"
     weight = 30
 
-  [[menu.main]]
-    identifier = "test"
-    name = "Test 💻"
-    url = "/test/"
-    weight = 40
+#  [[menu.main]]
+#    identifier = "test"
+#    name = "Test 💻"
+#    url = "/test/"
+#    weight = 40
 
   [[menu.main]]
     identifier = "about"
