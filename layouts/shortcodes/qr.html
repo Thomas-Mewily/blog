@@ -1,0 +1,32 @@
+{{/*
+Shortcode: qr
+Usage examples:
+  {{< qr "https://example.com" >}}
+  {{< qr "https://example.com" size="200x200" alt="Link QR" class="mx-auto" >}}
+  {{< qr size="150x150" link="https://example.com" >}}Text to encode{{< /qr >}}
+Parameters:
+  - positional 0: data (falls back to inner content)
+  - size: e.g. "150x150" (default)
+  - alt: image alt text
+  - class: css classes for the <img>
+  - link: wrap image with <a href="..."> if provided
+This uses api.qrserver.com to generate the QR image.
+*/}}
+{{ $data := .Get 0 }}
+{{ if not $data }}
+  {{ $data = .Get "text" }}
+{{ end }}
+{{ if not $data }}
+  {{ $data = .Inner | plainify }}
+{{ end }}
+{{ $data = trim $data " \n\t\r" }}
+{{ $size := default "150x150" (.Get "size") }}
+{{ $alt := default "QR code" (.Get "alt") }}
+{{ $class := .Get "class" }}
+{{ $link := .Get "link" }}
+{{ $src := printf "https://api.qrserver.com/v1/create-qr-code/?size=%s&data=%s" ($size | urlquery) ($data | urlquery) }}
+{{ if $link }}
+  <a href="{{ $link }}"><img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} /></a>
+{{ else }}
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} />
+{{ end }}
