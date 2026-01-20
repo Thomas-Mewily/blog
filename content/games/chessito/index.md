@@ -6,16 +6,16 @@ layout = "itchio_game"
 toc = false
 tags = ["game", "chess", "boardgame", "strategy", "rust"]
 categories = ["game", "rust"]
-description = "A Chess inspired game with custom game rule"
+description = "♞ A Chess inspired game with custom game rule."
 image = "thumbnail.png"
 itchio_url = "https://mewily.itch.io/chessito"
 +++
 
 <iframe frameborder="0" src="https://itch.io/embed-upload/10700404?color=210033" allowfullscreen="" width="960" height="560"><a href="https://mewily.itch.io/chessito">Play ChessIto on itch.io</a></iframe>
 
-Loading this game can take some time. Can be played on Pc and Mobile
+*Note: Loading can take some time. Available on PC and Mobile.*
 
-# Some information about the game
+# Game Overview
 
 ## What are Relics
 
@@ -59,9 +59,14 @@ Click on an icon to change the player kind :
 
 ## Ui Buttons
 
-- <img src="lightning.png" alt="Ui lightning" class="inline align-middle" style="height: 4rem; display: inline;" /> Lightning ⚡ : Allow you to see all player move set !
-
-- <img src="undo_redo.png" alt="Ui undo redo" class="inline align-middle" style="height: 4rem; display: inline;" /> Undo Redo ⌛ : Go back in time to cancel a bad move.
+<div style="display: flex; gap: 2rem; flex-wrap: wrap; width: 100%; justify-content: space-between;">
+  <div>
+    <img src="lightning.png" alt="Ui lightning" class="inline align-middle" style="height: 4rem; display: inline;" /> <strong style="font-size: 1.1em;">Lightning ⚡</strong><br/>Allow you to see all player move set !
+  </div>
+  <div>
+    <img src="undo_redo.png" alt="Ui undo redo" class="inline align-middle" style="height: 4rem; display: inline;" /> <strong style="font-size: 1.1em;">Undo Redo ⌛</strong><br/>Go back in time to cancel a bad move.
+  </div>
+</div>
 
 ## Rule
 
