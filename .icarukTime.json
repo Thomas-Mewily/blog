@@ -1,11 +1,11 @@
 {
-    "idleHeartbeats": 12038,
-    "navigatingHeartbeats": 2904,
-    "totalCodingHeartbeats": 17060,
+    "idleHeartbeats": 12050,
+    "navigatingHeartbeats": 2924,
+    "totalCodingHeartbeats": 17121,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3591,
-        "markdown": 9407,
+        "markdown": 9468,
         "html": 3118,
         "scminput": 832,
         "yaml": 17,
@@ -31,7 +31,7 @@
         "content/projects/my-first-project.md": 127,
         "README.md": 194,
         "content/games/chessito.md": 198,
-        "content/games/mario_maker_v6/index.md": 559,
+        "content/games/mario_maker_v6/index.md": 607,
         "themes/tailwind/layouts/_default/list.html": 342,
         "content/games/chessito/index.md": 1271,
         "themes/tailwind/layouts/partials/block/image.html": 66,
@@ -49,6 +49,7 @@
         "e:\\Me\\site_web\\website\\hugo.toml.git": 48,
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
-        "content/test/pentagone/index.md": 232
+        "content/test/pentagone/index.md": 232,
+        "/media/mewily/Me/blog/content/games/mario_maker_v6/index.md": 13
     }
 }

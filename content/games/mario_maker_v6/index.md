@@ -2,11 +2,14 @@
 date = "2018-04-17T00:00:00+02:00"
 draft = false
 title = "Mario Maker V6 on Scratch"
+layout = "scratch_game"
 toc = false
 tags = ["scratch", "mario", "maker", "platformer"]
 categories = ["scratch", "game"]
 description = "A Mario Maker like game where you can create and share your level"
 image = "thumbnail.png"
+scratch_url = "https://scratch.mit.edu/projects/218481168/"
+turbowarp_url = "https://turbowarp.org/218481168"
 +++
 
 
@@ -16,7 +19,7 @@ image = "thumbnail.png"
 
 This is a mario maker / platformer game I made when I was 15 using Scratch.
 
-## Controls 
+## Controls
 
 - **Arrows Keys** or **WASD** : Move, Jump, Crouch
 - **Space** : Hold an Item, Open Door, Power Up
