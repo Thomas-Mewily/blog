@@ -1,13 +1,13 @@
 {
-    "idleHeartbeats": 12743,
-    "navigatingHeartbeats": 3164,
-    "totalCodingHeartbeats": 17637,
+    "idleHeartbeats": 12782,
+    "navigatingHeartbeats": 3230,
+    "totalCodingHeartbeats": 17756,
     "languageHeartbeats": {
-        "jsonc": 114,
+        "jsonc": 159,
         "toml": 3756,
         "markdown": 9513,
-        "html": 3118,
-        "scminput": 832,
+        "html": 3145,
+        "scminput": 879,
         "yaml": 17,
         "plaintext": 48,
         "shellscript": 239
@@ -54,6 +54,8 @@
         "/media/mewily/Me/blog/content/games/mario_maker_v6/index.md": 58,
         "/response_2ac5c890-9837-4004-b0d3-adcb93c5ce13/0": 69,
         "/response_4c12c31f-c047-4e66-aa7a-3998bab0bc0b/0": 170,
-        "/home/mewily/.config/Code/User/settings.json": 67
+        "/home/mewily/.config/Code/User/settings.json": 112,
+        "git/scm0/input": 47,
+        "layouts/_default/itchio_game.html": 27
     }
 }

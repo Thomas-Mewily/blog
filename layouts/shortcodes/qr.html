@@ -25,8 +25,67 @@ This uses api.qrserver.com to generate the QR image.
 {{ $class := .Get "class" }}
 {{ $link := .Get "link" }}
 {{ $src := printf "https://api.qrserver.com/v1/create-qr-code/?size=%s&data=%s" ($size | urlquery) ($data | urlquery) }}
+{{ $fullscreenSrc := printf "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=%s" ($data | urlquery) }}
+
+<style>
+.qr-container {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+.qr-container:hover::after {
+  content: "Click for fullscreen";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+.qr-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: pointer;
+}
+.qr-fullscreen img {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+</style>
+
+<script>
+function toggleQrFullscreen(img, fullscreenSrc) {
+  if (document.getElementById('qr-fullscreen')) {
+    document.getElementById('qr-fullscreen').remove();
+  } else {
+    const fullscreen = document.createElement('div');
+    fullscreen.id = 'qr-fullscreen';
+    fullscreen.className = 'qr-fullscreen';
+    fullscreen.innerHTML = `<img src="${fullscreenSrc}" alt="${img.alt}" />`;
+    fullscreen.onclick = function() {
+      this.remove();
+    };
+    document.body.appendChild(fullscreen);
+  }
+}
+</script>
+
 {{ if $link }}
-  <a href="{{ $link }}"><img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} /></a>
+  <a href="{{ $link }}"><div class="qr-container" onclick="toggleQrFullscreen(this.querySelector('img'), '{{ $fullscreenSrc }}')"><img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} /></div></a>
 {{ else }}
-  <img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} />
+  <div class="qr-container" onclick="toggleQrFullscreen(this.querySelector('img'), '{{ $fullscreenSrc }}')"><img src="{{ $src }}" alt="{{ $alt }}"{{ if $class }} class="{{ $class }}"{{ end }} /></div>
 {{ end }}
