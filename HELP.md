@@ -11,4 +11,5 @@ hugo server
 
 # create some content
 hugo new content content/posts/title.md
+hugo new content content/posts/constructor_in_rust.md
 ```

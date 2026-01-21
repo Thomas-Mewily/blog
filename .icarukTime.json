@@ -1,20 +1,19 @@
 {
-    "idleHeartbeats": 12782,
-    "navigatingHeartbeats": 3230,
-    "totalCodingHeartbeats": 17756,
+    "idleHeartbeats": 14388,
+    "navigatingHeartbeats": 2978,
+    "totalCodingHeartbeats": 18509,
     "languageHeartbeats": {
-        "jsonc": 159,
-        "toml": 3756,
-        "markdown": 9513,
-        "html": 3145,
-        "scminput": 879,
+        "jsonc": 47,
+        "toml": 3591,
+        "markdown": 10663,
+        "html": 3210,
+        "scminput": 933,
         "yaml": 17,
-        "plaintext": 48,
-        "shellscript": 239
+        "plaintext": 48
     },
     "fileHeartbeats": {
         ".vscode/settings.json": 47,
-        "hugo.toml": 3584,
+        "hugo.toml": 3419,
         "content/posts/my-first-post.md": 2648,
         "content/about.md": 789,
         "layouts/_default/single.html": 57,
@@ -32,9 +31,9 @@
         "content/projects/my-first-project.md": 127,
         "README.md": 194,
         "content/games/chessito.md": 198,
-        "content/games/mario_maker_v6/index.md": 607,
+        "content/games/mario_maker_v6/index.md": 559,
         "themes/tailwind/layouts/_default/list.html": 342,
-        "content/games/chessito/index.md": 1271,
+        "content/games/chessito/index.md": 2449,
         "themes/tailwind/layouts/partials/block/image.html": 66,
         "content/posts/default_is_triple_underscore.md": 115,
         "themes/tailwind/exampleSite/config/_default/params.toml": 172,
@@ -51,11 +50,8 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "/media/mewily/Me/blog/content/games/mario_maker_v6/index.md": 58,
-        "/response_2ac5c890-9837-4004-b0d3-adcb93c5ce13/0": 69,
-        "/response_4c12c31f-c047-4e66-aa7a-3998bab0bc0b/0": 170,
-        "/home/mewily/.config/Code/User/settings.json": 112,
-        "git/scm0/input": 47,
-        "layouts/_default/itchio_game.html": 27
+        "git/scm0/input": 101,
+        "layouts/shortcodes/qr.html": 92,
+        "content/posts/constructor_in_rust/index.md": 78
     }
 }
