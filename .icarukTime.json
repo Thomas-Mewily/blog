@@ -1,16 +1,16 @@
 {
-    "idleHeartbeats": 14388,
-    "navigatingHeartbeats": 2998,
-    "totalCodingHeartbeats": 18674,
+    "idleHeartbeats": 14588,
+    "navigatingHeartbeats": 3016,
+    "totalCodingHeartbeats": 19114,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3591,
-        "markdown": 10663,
+        "markdown": 10925,
         "html": 3210,
-        "scminput": 933,
+        "scminput": 1066,
         "yaml": 17,
         "plaintext": 48,
-        "Log": 165
+        "Log": 210
     },
     "fileHeartbeats": {
         ".vscode/settings.json": 47,
@@ -51,9 +51,9 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "git/scm0/input": 101,
+        "git/scm0/input": 234,
         "layouts/shortcodes/qr.html": 92,
-        "content/posts/constructor_in_rust/index.md": 78,
-        "extension-output-mkxml.vscode-filesize-#1-filesize": 165
+        "content/posts/constructor_in_rust/index.md": 340,
+        "extension-output-mkxml.vscode-filesize-#1-filesize": 210
     }
 }

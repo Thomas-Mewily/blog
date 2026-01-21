@@ -31,25 +31,48 @@ Primitive types like integers or floats already have a native syntax for constru
 
 ## Move Semantic: Copy and Clone
 
-In Rust, there are two traits that can be automatically implemented for a type: `Clone` and `Copy`. I don't want to enter to much details about the difference between the two, but here are the main differences:
+In Rust, there are 2 traits for duplicating a value: `Clone` and `Copy`.
 - `Clone`: [Create a deep, independent copy of the value](<https://doc.rust.org/std/clone/trait.Clone.html>).
 
-- `Copy`: [Types whose values can be duplicated simply by copying bits.](<https://doc.rust.org/std/marker/trait.Copy.html>) is a marker trait that imply `Clone`.
-Type that have have a field that have an indirection layer in memory such as `Box`, `Vec`, `String`, `HashMap`, `HashSet`, etc can't be `Copy`, just `Clone`.
+- `Copy`: [Types whose values can be duplicated simply by copying bits.](<https://doc.rust.org/std/marker/trait.Copy.html>) is a marker trait that implies `Clone`.
+By *marker* trait, I mean there is no logic in the `Copy` trait itself the definiton is: `pub trait Copy: Clone { }`. The compiler ensure that the type implements `Clone` and that it can be bit copied. All the logic for duplicating a value is in the `Clone` trait.
+
+ Type that have have a field that have an indirection layer in memory such as `Box`, `Vec`, `String`, `HashMap`, `HashSet`, etc can't be `Copy`, just `Clone`.
 
 
 `Copy` constructor are done implicitly, and are fast..
 
 ```rs
 let value = 42;
-let value2 = value; // implicit copy
+let value2 = value; // implicit copy because it is cheap to do.
 ```
 
 ...and `Clone` constructor are done explicitly, and are slower because the object is generaly heavier to duplicate.
 
 ```rs
-let value = "hello".to_owned(); // 1 memory allocation, can't be bit copied
+let value = "hello".to_owned(); // 1 memory allocation, and can't be bit copied
 let value2 = value.clone(); // explicit clone, 2 memory allocations
+```
+
+For comparison, everythings is implictely cloned in C++, there no distinction between `Copy` and `Clone`.
+This mean you can accidentally clone a vector or a string, which can be expensive, without realizing it.
+
+You can impl manually the `Clone` trait for a type, or you can use the `derive macro` that will implement it automatically for you:
+
+```rs
+// derive macro:
+#[derive(Clone, Copy)]
+struct MyI32 {
+    x: i32
+}
+
+// or manually:
+impl Clone for MyI32 {
+    fn clone(&self) -> Self {
+        MyI32 { x: self.x }
+    }
+}
+impl Copy for MyI32 {}
 ```
 
 ## Struct Instantiation in Rust
