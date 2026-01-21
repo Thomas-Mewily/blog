@@ -1,13 +1,15 @@
 {
-    "idleHeartbeats": 1115,
-    "navigatingHeartbeats": 23,
-    "totalCodingHeartbeats": 4740,
+    "idleHeartbeats": 2188,
+    "navigatingHeartbeats": 25,
+    "totalCodingHeartbeats": 5423,
     "languageHeartbeats": {
         "jsonc": 381,
-        "markdown": 4359
+        "markdown": 4976,
+        "scminput": 66
     },
     "fileHeartbeats": {
         ".vscode/settings.json": 381,
-        "index.md": 4359
+        "index.md": 4976,
+        "git/scm0/input": 66
     }
 }

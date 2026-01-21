@@ -4,31 +4,31 @@ draft = false
 title = "Constructor in Rust"
 tags = ["constructor", "design patterns"]
 categories = ["programming", "rust"]
-description = "Different approch to Constructor in Rust"
+description = "Constructor Patterns in Rust: From Basics to Advanced Techniques"
 image = "thumbnail.png"
 +++
 
-# An approch to Constructor in Rust :
+# Constructor Patterns in Rust: From Basics to Advanced Techniques
 
-Some of my friends are learning Rust, and they are coming from langage like C++ or Java. One things that one of them told me is:
+Some of my friends are learning Rust, and they are coming from languages like C++ or Java. One thing that one of them told me is:
 
 > It's crap, the new function only has one declaration. You can't declare it based on the number of arguments like in C++ or Java, but on the other hand, there's no problem with macros...
 
-After answering with a lot of message about the different way to make good constructor in Rust, I decided to write this blog about it.
+After answering with a lot of messages about the different ways to make good constructors in Rust, I decided to write this blog about it.
 
-# Why do we need constructors:
+## Why do we need constructors
 
-A constructor in general have multiples usages:
+A constructor in general has multiple usages:
 
-- **Instantiation** : It is the most common usage : creating an instance from smaller piece, like a `struct`, an `enum` or an `class` (for C++/Java developers).
+- **Instantiation** : It is the most common usage : creating an instance from smaller pieces, like a `struct`, an `enum` or a `class` (for C++/Java developers).
 
-Primitive types like integers or floats already have a native syntax for construction (eg `42` for an integer, `true` or `false` for a boolean). More complex types, especially composite types like structures, tuples, or arrays, require a mechanism or syntax to initialize themselves.
+Primitive types like integers or floats already have a native syntax for construction (e.g., `42` for an integer, `true` or `false` for a boolean). More complex types, especially composite types like structures, tuples, or arrays, require a mechanism or syntax to initialize themselves.
 
 - **Encapsulation** : It's about invariant and control. Deciding what value are valid or what relation the structure should hold. The goal is to avoid any invalid state, typically achieved through data hiding and encapsulation.
 
 - **Placement** : In C++, the constructor also determines where in memory the object is initialized.
 
-# Struct Instantiation in Rust
+## Struct Instantiation in Rust
 
 ```rs
 #[derive(Debug, Clone, Default)]
@@ -40,13 +40,13 @@ pub struct Person
 }
 ```
 
-If you want to create/instanciate a *new* `Person`, you can just use the [struct literal syntax](<https://doc.rust-lang.org/book/ch05-01-defining-structs.html#:~:text=Creating%20an%20instance%20of%20the%20User%20struct>).
+If you want to create/instantiate a *new* `Person`, you can just use the [struct literal syntax](<https://doc.rust-lang.org/book/ch05-01-defining-structs.html#:~:text=Creating%20an%20instance%20of%20the%20User%20struct>).
 
 ```rs
 let bobby = Person { age: 42, name: "Bobby".to_owned(), hobbies: vec!["programming".to_owned()] };
 ```
 
-Even better, you can create another person based on `bobby` for all the missing field.
+Even better, you can create another person based on `bobby` for all the missing fields.
 
 ```rs
 let alice = Person { name: "Alice".to_owned(), .. bobby };
@@ -54,13 +54,13 @@ let alice = Person { name: "Alice".to_owned(), .. bobby };
 
 This is the [struct update syntax](<https://doc.rust-lang.org/book/ch05-01-defining-structs.html#:~:text=Using%20struct%20update%20syntax%20to%20set%20a%20new%20email%20value%20for%20a%20User%20instance%20but%20to%20use%20the%20rest%20of%20the%20values%20from%20user1>) described in the Rust book.
 
-Doing this will *move* bobby field, so the moved first will not be available after it :
+Doing this will *move* bobby's fields, so the moved ones will not be available after it:
 
 ```rs
 let bobby = Person { age: 42, name: "Bobby".to_owned(), hobbies: vec!["programming".to_owned()] };
 let alice = Person { name: "Alice".to_owned(), .. bobby };
 
-dbg!(&bobby.name); // ok because Alice constructor have her own name
+dbg!(&bobby.name); // ok because Alice constructor has her own name
 // dbg!(&bobby.hobbies); // error: borrow of moved value: `bobby.hobbies`. It was moved to Alice
 dbg!(&bobby.age); // ok, because the type `i32` is Copy, so it was copied, not moved
 ```
@@ -73,7 +73,7 @@ dbg!(&bobby); // ok
 ```
 
 
-Ok great, this is great for satisafying the first point *instantiating* new structure, but it completely break the *encapsulation*. Anyone can create a new person with a negative age:
+Ok great, this is great for satisfying the first point *instantiating* new structure, but it completely breaks the *encapsulation*. Anyone can create a new person with a negative age:
 
 ```rs
 pub struct Person
@@ -87,14 +87,16 @@ let alice = Person { age: -100, name: "Alice".to_owned() };
 alice.age = -200;
 ```
 
-Even and intialization, anyone can read, and edit the `age` field.
+Even after initialization, anyone can read, and edit the `age` field.
 
-If you are coming from Java/C#/C++ the anwser is simple just make the field private, and write a constructor to be able to initialize the struct, and add some getter/setter to control the access to the field. Let's focusing on the constructor part for the moment:
+### Encapsulation
+
+If you are coming from Java/C#/C++ the answer is simple: just make the field private, and write a constructor to be able to initialize the struct, and add some getter/setter to control the access to the field. Let's focus on the constructor part for the moment:
 
 ```rs
 pub struct Person
 {
-    // the field are no longer public
+    // the fields are no longer public
     age: i32,
     name: String,
 }
@@ -108,10 +110,14 @@ impl Person
 }
 ```
 
-Right now, we don't check the age. Notice that the constructor is just a plain function in Rust. I don't have any special Syntax, you can take it's adress, and even write a *constructor* inside a `trait`/interface.
+Right now, even if we are not validating the age, the `new` method is the only way to construct a person, so if any logic should occur to validate the input, it should happen here.
+
+Because the field are `private` by default (absence of `pub`), nobody outside the current module can read/write them. The same apply for initializing the struct using the `Person{ age:42, name:"Alice".to_owned() }` syntax.
+
+Notice that the constructor is just a plain function in Rust. It doesn't have any special syntax, you can take its address, and even write a *constructor* inside a `trait`/interface.
 
 
-To make sure the instance of the person we are building is valid, we can have a **faillible** constructor that return an `Option<Self>` or a `Result<Self,MyConstructorErrorType>` if you want to specify why the struct can't be constructed with the current parameter. (If the parameter are costly to compute, like the string `name`, we can also return them properly in the error of the result).
+To make sure the instance of the person we are building is valid, we can have a **fallible** constructor that returns an `Option<Self>` or a `Result<Self,MyConstructorErrorType>` if you want to specify why the struct can't be constructed with the current parameter. (If the parameters are costly to compute, like the string `name`, we can also return them properly in the error of the result).
 
 ```rs
 impl Person
@@ -126,9 +132,9 @@ impl Person
 let alice = Person::try_new(42, "Alice".to_owned()).expect("it should be good");
 ```
 
-A lot of constructors /functions in the standard library are faillible, and their names start with [`try_`](<https://doc.rust-lang.org/std/?search=try_>).
+A lot of constructors/functions in the standard library are fallible, and their names start with [`try_`](<https://doc.rust-lang.org/std/?search=try_>).
 
-Faillible constructor is somethings that can't be directly done in C++/Java purely by using the constructor, because constructor in those langages can't fail. Surely you can throw an exception. But you can emulate it by making the constructor private, and write a static function to be able to initialize the class, and add some getter/setter to control the access to the field:
+Fallible constructor is something that can't be directly done in C++/Java purely by using the constructor, because constructors in those languages can't fail. Surely you can throw an exception. But you can also emulate a fallible constructor by making the constructor private, and write a static function to be able to initialize the class, and add some getter/setter to control the access to the field:
 
 Example in Java this time:
 
@@ -160,7 +166,7 @@ if (alice == null) {
 }
 ```
 
-or you can use the `Optional` type instead or returning `null` on faillure:
+or you can use the `Optional` type instead of returning `null` on failure for a cleaner approch:
 
 ```java
 public class Person {
@@ -181,8 +187,8 @@ public class Person {
 }
 ```
 
-Ok le'ts go back to Rust.
-We can have constructor that auto-correct invalid input, or constructor that panic on invalid input.
+Ok let's go back to Rust.
+We can have constructors that auto-correct invalid input, or constructors that panic on invalid input.
 
 ```rs
 impl Person
@@ -209,7 +215,7 @@ It’s fine to have helper functions or constructors that can panic, as long as:
 - It is clearly documented,
 - The underlying mechanism (here, the `try_new` function/constructor) is public. This allows others to build a non-failing abstraction on top that won’t panic.
 
-We just need to add a few getter/setter and we are done about encapsulation:
+We just need to add a few getter/setter and we are done with encapsulation:
 
 ```rs
 impl Person
@@ -217,7 +223,7 @@ impl Person
     pub fn age(&self) -> i32 { self.age }
     // The result type can also be a `bool` in this case,
     // but a `Result` make it explicit that this function can fail
-    // Ok return the original mutable reference to self to
+    // Ok returns the original mutable reference to self for
     // method chaining . It is not required, but I like it
     pub fn set_age(&mut self, age: i32) -> Result<&mut Self,()>
     {
@@ -235,13 +241,15 @@ let mut p = Person::new();
 p.set_age(42).unwrap().rename("Alice");
 ```
 
-Ok now it's is time to adress the rude original critique
+Ok now it's time to address the rude original critique
 
 > It's crap, the new function only has one declaration. You can't declare it based on the number of arguments like in C++ or Java, but on the other hand, there's no problem with macros...
 
-The point is conveniance.
+The point of the argument is about convenience : you can't have multiple `new` functions in Rust.
 
-In Java, you probably write:
+*Ho boy, you have no idea how wrong you are. You want conveniance, i'll give you some.*
+
+In Java, you would probably write:
 
 ```java
 public class Person
@@ -269,7 +277,7 @@ public class Person
 }
 ```
 
-It's better to delegate all constructor to only one constructor, that way only this one need to check the invariants.
+It's better to delegate all constructors to only one constructor, that way only this one needs to check the invariants.
 
 If you try the same in Rust it will fail:
 
@@ -291,7 +299,7 @@ impl Person {
 
 You can't have multiple function with the same name `new`, there is no overloading in Rust. (at least not like that).
 
-The soluce is simple: be more creative, and use different name:
+The solution is simple: be more creative, and use different names:
 
 ```rs
 impl Person {
@@ -303,15 +311,15 @@ impl Person {
         Self::new(0, name)
     }
 
-    pub fn from_name(age: i32) -> Self {
+    pub fn from_age(age: i32) -> Self {
         Self::new(age, "Unknown".to_string())
     }
 }
 ```
 
-## Large structure
+### Large Structure
 
-Constructor are simple to use when they have little parameters, but it is not convenient when you have a lot of field:
+Traditionnal constructors where you list all the fields are simple to use when they have few parameters, but it is not convenient when you have a lot of them:
 
 ```rs
 pub struct Person {
@@ -346,31 +354,39 @@ impl Person {
     }
 }
 
-// How conveniant... We can do better
-let p = Persone::new("John Doe".to_string(), 42, "john.doe@example.com".to_string(), "1234567890".to_string(), "On the street because the rent are expensive".to_string(), "Anytown".to_string(), "USA".to_string());
+// How convenient... We can do better
+let p = Person::new(
+                    "John Doe".to_string(),
+                    42,
+                    "john.doe@example.com".to_string(),
+                    "1234567890".to_string(),
+                    "On the street because the rent are expensive".to_string(),
+                    "Anytown".to_string(),
+                    "USA".to_string()
+                   );
 ```
 
-*Note*: I use a lot the `String` type for the example, but it's not the best choice for a real world application for modeling a `country`, an `email`... Those should have their own type that validate the value.
+*Note*: I use a lot of `String` type for the example, but it's not the best choice for a real-world application for modeling a `country`, an `email`... Those should have their own type that validates the value.
 
-If you have a structure with a lot of field, it because barely usable:
+If you have a structure with a lot of fields, it becomes barely usable:
 - It's hard to read the code,
 - The constructor is long,
-- The field order really matter if you don't want to accidentally swap the city and the country,
+- The field order really matters if you don't want to accidentally swap the city and the country,
 - And it's easy to make a mistake.
 
 
-And if, in the future, you want to add a new field, you will have to update all the constructor. Imagine doing this as a library/crate developer, you can't ask every user to update their code because you decided to add a new field.
+And if, in the future, you want to add a new field, you will have to update all constructors. Imagine doing this as a library/crate developer, you can't ask every user to update their code because you decided to add a new field.
 
-Constructor in this case is not the best way to initialize it. It's better to use a builder pattern.
+Constructors in this case are not the best way to initialize it. It's better to use a builder pattern.
 
-## Builder pattern
+## Builder Pattern
 
-If you have a large structure that need to verify the invariants, it's better to use a builder pattern. Typically, you can initialize a Person from another structure that have the same field in public.
+If you have a large structure that needs to verify invariants, it's better to use a builder pattern. Typically, you can initialize a Person from another structure that has the same fields in public.
 
 ```rs
 #[derive(Default)]
 pub struct PersonBuilder {
-    // Notive the public field
+    // Notice the public fields
     pub name: String,
     pub age: u32,
     pub email: String,
@@ -388,31 +404,45 @@ impl Person
 {
     pub fn new(builder: PersonBuilder) -> Self { builder.build() }
 }
-impl Builder
+impl PersonBuilder
 {
     pub fn build(self) -> Person {
         Person { name: self.name, age: self.age, email: self.email, phone: self.phone }
     }
 }
 
-let p = Person::new(PersonBuilder{age:42, name:"John Doe".to_string(), email:"john.doe@example.com".to_string(), phone:"1234567890".to_string()});
-// or
-let p = PersonBuilder{age:42, name:"John Doe".to_string(), email:"john.doe@example.com".to_string(), phone:"1234567890".to_string()}.build();
-// or event better:
+let p = Person::new(
+    PersonBuilder
+    {
+        age:42,
+        name:"John Doe".to_string(),
+        email:"john.doe@example.com".to_string(),
+        phone:"1234567890".to_string()
+    }
+);
 
+// or
+let p = PersonBuilder{
+            age:42,
+            name:"John Doe".to_string(),
+            email:"john.doe@example.com".to_string(),
+            phone:"1234567890".to_string()
+        }.build();
+
+// or:
 let p = Person::new(PersonBuilder{age:42, name:"John Doe".to_string(), .. Default::default()});
 ```
 
-This work well because:
+This works well because:
 
-- all field are now named, and the order doesn't matter
-- it respect encapsulation for the `Person` struct.
+- all fields are now named, and the order doesn't matter
+- it respects encapsulation for the `Person` struct.
 
-Right now this is an infaillible builder, it always return a `Person`, but we can make it fail if needed and return an `Option<Person>` or a `Result<Person, Error>`.
+Right now this is an infallible builder, it always returns a `Person`, but we can make it fail if needed and return an `Option<Person>` or a `Result<Person, Error>`.
 
-Notice how, by making the same structure in public, we can now use the struct literal to initialize the builder.
+Notice how, by making the same structure public, we can now use the struct literal to initialize the builder.
 
-It is also possible to define some kind of profile that will edit multiple parameter at once:
+It is also possible to define some kind of profile that will edit multiple parameters at once:
 ```rs
 impl PersonBuilder
 {
@@ -421,10 +451,10 @@ impl PersonBuilder
 
 let p = PersonBuilder::new().name("Kevin").avoids_technology().age(7).build();
 ```
-Maybe this example is a bit too simple, but it is really useful to be able to quickly define new profile like that, think about a structure describing some complexe configuration.
+Maybe this example is a bit too simple, but it is really useful to be able to quickly define new profiles like that, think about a structure describing some complex configuration.
 
 
-Some crate like wgpu use this pattern a lot to initialize all kind of structure using the name [`XDescriptor`](<https://docs.rs/wgpu/latest/wgpu/?search=Descriptor>):
+Some crates like wgpu use this pattern a lot to initialize all kinds of structures using the name [`XDescriptor`](<https://docs.rs/wgpu/latest/wgpu/?search=Descriptor>):
 ```rs
 let instance = wgpu::Instance::new(
     &wgpu::InstanceDescriptor // right here :)
@@ -440,9 +470,9 @@ let instance = wgpu::Instance::new(
 (Example taken from [Learn Wgpu](<https://sotrh.github.io/learn-wgpu/beginner/tutorial2-surface/#first-some-housekeeping-state:~:text=WebGPU-,let,Default%3A%3Adefault%28%29%20%7D%29%3B>))
 
 
-### Conveniant method
+### Convenient Setter By Value
 
-We can even made some conveniant method on the builder to init each field
+We can even make some convenient methods on the builder to initialize each field
 
 ```rs
 impl PersonBuilder
@@ -451,10 +481,10 @@ impl PersonBuilder
 
     pub fn age(self, age: i32) -> Self { Self { age, .. self } }
     pub fn name(self, name: String) -> Self { Self { name, .. self } }
-    // other syntax possible
+    // other possible syntax
     pub fn email(mut self, email: String) -> Self { self.email = email; self }
-    
-    // or even making the string creation more conveniant
+
+    // or even making the string creation more convenient
     pub fn phone(self, phone: impl Into<String>) -> Self { Self { phone: phone.into(), .. self } }
 }
 
@@ -465,9 +495,9 @@ let p = PersonBuilder::new()
         .build();
 ```
 
-### Backward compatibility
+#### Backward Compatibility
 
-If we need to add more field later, without restrucing the API, we can mark the struct [non_exhaustive](<https://doc.rust-lang.org/reference/attributes/type_system.html>):
+If we need to add more fields later, without restricting the API, we can mark the struct [non_exhaustive](<https://doc.rust-lang.org/reference/attributes/type_system.html>):
 
 ```rs
 #[non_exhaustive]
@@ -481,7 +511,7 @@ pub struct PersonBuilder {
 }
 ```
 
-This mean that we can't use the struct literal outside of the current crate to initialize the builder, because adding new field can be added in the future.
+This means that we can't use the struct literal outside of the current crate to initialize the builder, because new fields can be added in the future.
 
 You can still use the struct update syntax:
 
@@ -489,7 +519,7 @@ You can still use the struct update syntax:
 PersonBuilder{age:42, .. PersonBuilder::new()};
 ```
 
-or the conveniance method to set the field.
+or the convenience methods to set the fields.
 
 ```rs
 PersonBuilder::new()
@@ -498,11 +528,11 @@ PersonBuilder::new()
     .phone("1234567890");
 ```
 
-That way, even if we add new field in the future, it will not break the API and old code will still work without any change.
+That way, even if we add new fields in the future, it will not break the API and old code will still work without any change.
 
-### Builder Trait Are Useless ?
+#### Builder Traits Are Useless?
 
-If we want we can even made a trait for buider:
+If we want, we can even make a trait for builder:
 
 ```rs
 pub trait Builder<T> {
@@ -518,23 +548,23 @@ impl Builder<Person> for PersonBuilder
 
 impl Person
 {
-    // Accept any type that implement the Builder trait, 
-    // not just PersonBuilder, even we don't need more
+    // Accept any type that implements the Builder trait,
+    // not just PersonBuilder, even if we don't need more
     // than one builder type.
     pub fn new(builder: impl Builder<Self>) -> Self { builder.build() }
 }
 ```
 
 ```rs
-pub trait FaillibleBuilder<T> {
+pub trait FallibleBuilder<T> {
     type Error;
     fn try_build(self) -> Result<T, Self::Error>;
 }
 ```
 
-But wait ! This look exactly like the [Try](<https://doc.rust-lang.org/std/convert/trait.From.html>) and [TryFrom](<https://doc.rust-lang.org/std/convert/trait.TryFrom.html>) traits in the standard library !
+But wait! This looks exactly like the [From](<https://doc.rust-lang.org/std/convert/trait.From.html>) and [TryFrom](<https://doc.rust-lang.org/std/convert/trait.TryFrom.html>) traits in the standard library!
 
-So we can remove these uncessary `Builder` and `FaillibleBuilder` trait and use these traits instead:
+So we can remove these unnecessary `Builder` and `FallibleBuilder` traits and use these traits instead:
 
 ```rs
 impl From<PersonBuilder> for Person {
@@ -545,42 +575,16 @@ impl From<PersonBuilder> for Person {
 
 impl Person
 {
-    pub fn new(value: impl Into<PersonBuilder>) -> Self { value.into() }
+    pub fn new(value: impl Into<Person>) -> Self { value.into() }
 }
 ```
 
-The inconveniance is that it is hard to know what we can pass to the `new` function by just looking at the type signature.
+The inconvenience is that it is hard to know what we can pass to the `new` function by just looking at the type signature.
 
-### The From and Into trait
 
-The `From` and `Into` trait are a way to convert a type into another type. The convertion must be infallible/can't fail, without any loss of information.
+### Merging the Builder and the Struct
 
-For exemple `From<u8> for u32` is possible because it's a lossless conversion/*integer promotion*, but `From<u32> for u8` is not possible, because it can't convert a number that is too big to fit in a u8.
-
-For small type, it's conveniant to use the `From` and `Into` trait.
-
-From a code perspective, you just need to implement `From` trait, and the `Into` trait will be automatically implemented for you as stated  in the std:
-
-`From` trait description:
-> [One should always prefer implementing From over Into because implementing From automatically provides one with an implementation of Into thanks to the blanket implementation in the standard library.](<https://doc.rust-lang.org/std/convert/trait.From.html#:~:text=One%20should%20always%20prefer%20implementing%20From%20over%20Into%20because%20implementing%20From%20automatically%20provides%20one%20with%20an%20implementation%20of%20Into%20thanks%20to%20the%20blanket%20implementation%20in%20the%20standard%20library>)
-
-`Into` trait description:
-> One should avoid implementing `Into` and implement `From` instead.
-
-```rs
-struct MyCustomI32(i32);
-
-impl From<i32> for MyCustomI32 { fn from(value: i32) -> Self { MyCustomI32(value) } }
-impl From<MyCustomI32> for i32 { fn from(value: MyCustomI32) -> Self { value.0 } }
-
-let x = MyCustomI32::from(i32);
-```
-
-Another verison of the `From`/`Into` trait is the [`TryFrom`](<https://doc.rust-lang.org/std/convert/trait.TryFrom.html>)/[`TryInto`](<https://doc.rust-lang.org/std/convert/trait.TryInto.html>) trait, that allow to convert a type into another type, but can fail and return a custom error.
-
-# Back to the Builder
-
-If the struct don't have a default value, we can avoid writing a builder and use the same struct for the builder!
+If the struct doesn't have a default value, we can avoid writing a builder and use the same struct for the builder!
 
 ```rs
 #[derive(Default)]
@@ -605,29 +609,76 @@ impl Person
 let p = Person::new().with_age(42).with_name("John Doe");
 ```
 
-This work well if the default value is not too complex to compute, and if the logic for editing every field `with_age()`/`with_name()`, etc... is not too complex.
+This works well if the default value is not too complex to compute, and if the logic for editing every field `with_age()`/`with_name()`, etc... is not too complex.
 
-Notice how `fn with_age(self, age: i32) -> Self` and `fn set_age(&mut self, age: i32) -> &mut Self` are very similar, and we can use the same logic for both. It's maybe a bit annoying to write the same logic twice, and to have 2 names almost similar for the same thing, except the first one is call by value and the second one is by reference.
-
-## About Placement New
-
-Currently Rust don't support placement new. I guess this is one of the situation where C++ constructor are more polyvalent than the Rust one.
-
-All value in Rust are always *created* on the stack, and moved to the heap if necessary.
-
-There is a RFC for it <https://github.com/PoignardAzur/rust-rfcs/blob/placement-by-return/text/0000-placement-by-return.md>, but I can't tell more about it.
+Notice how `fn with_age(self, age: i32) -> Self` and `fn set_age(&mut self, age: i32) -> &mut Self` are very similar, and we can use the same logic for both. It's maybe a bit annoying to write the same logic twice, and to have 2 names almost similar for the same thing, except the first one is called by value and the second one is by reference.
 
 
-# Other Useful Link
+## The From and Into trait
+
+The `From` and `Into` traits are a way to convert a type into another type. The conversion must be infallible/can't fail, without any loss of information.
+
+For example `From<u8> for u32` is possible because it's a lossless conversion/*integer promotion*, but `From<u32> for u8` is not possible, because it can't convert a number that is too big to fit in a u8. Instead you need to use the `as` keyword for casting: `42u32 as u8`. (Maybe I should cover more about convertion in a future post.)
+
+For small types, it's convenient to use the `From` and `Into` traits, and generic friendly.
+
+From a code perspective, you just need to implement `From` trait, and the `Into` trait will be automatically implemented for you as stated in the std:
+
+`From` trait description:
+> [One should always prefer implementing From over Into because implementing From automatically provides one with an implementation of Into thanks to the blanket implementation in the standard library.](<https://doc.rust-lang.org/std/convert/trait.From.html#:~:text=One%20should%20always%20prefer%20implementing%20From%20over%20Into%20because%20implementing%20From%20automatically%20provides%20one%20with%20an%20implementation%20of%20Into%20thanks%20to%20the%20blanket%20implementation%20in%20the%20standard%20library>)
+
+`Into` trait description:
+> One should avoid implementing `Into` and implement `From` instead.
+
+```rs
+struct MyCustomI32(i32);
+
+impl From<i32> for MyCustomI32 { fn from(value: i32) -> Self { MyCustomI32(value) } }
+impl From<MyCustomI32> for i32 { fn from(value: MyCustomI32) -> Self { value.0 } }
+
+let x = MyCustomI32::from(42);
+```
+
+Another version of the `From`/`Into` traits is the [`TryFrom`](<https://doc.rust-lang.org/std/convert/trait.TryFrom.html>)/[`TryInto`](<https://doc.rust-lang.org/std/convert/trait.TryInto.html>) traits, that allow converting a type into another type, but can fail and return a custom error.
+
+## Placement New
+
+Currently Rust doesn't support placement new. I guess this is one of the situations where C++ constructors are more versatile than Rust ones.
+
+All values in Rust are always *created* on the stack, and moved to the heap if necessary, even if the value guarentee to be on the heap (e.g. `Box::<i32>::new(42)` will be created on the stack, and moved to the heap. Not a big deal for an `i32`, but it is problematic for `[i32; 65536]` because it can cause a stack overflow. Some workaround exists).
+
+There is an RFC for it <https://github.com/PoignardAzur/rust-rfcs/blob/placement-by-return/text/0000-placement-by-return.md>, but I can't tell more about it.
+
+
+## Other Useful Links
 
 [Rust Book : Defining and Instantiating Structs](<https://doc.rust-lang.org/book/ch05-01-defining-structs.html>)
 
 [Idiomatic Rust (for C++ Devs): Constructors & Conversions](https://geo-ant.github.io/blog/2023/rust-for-cpp-developers-constructors/), it also cover more `Copy` constructor.
 
+## Conclusion
 
-# Code that don't compile
+Rust offers multiple powerful approaches to constructors, each suited for different scenarios:
 
-It is not possible to unify the `set_age` and `with_age` function, (and it is overkill)
+**For simple structs**: Use `new()` functions with clear, descriptive names like `from_name()` when you need different initialization patterns.
+
+**For validation**: Implement fallible constructors (`try_new()`) that return `Option<Self>` or `Result<Self, Error>` to handle invalid input gracefully.
+
+**For complex structs**: Use the builder pattern to handle many fields while maintaining readability and backward compatibility. Method chaining like `with_age()` is also possible.
+
+**For conversions**: Leverage `From`/`Into` traits for type conversions and `TryFrom`/`TryInto` for fallible conversions.
+
+While Rust doesn't have traditional constructor overloading like C++/Java, these patterns provide even more flexibility and safety. The key is choosing the right approach for your specific use case rather than trying to force one-size-fits-all solutions.
+
+Remember: good constructor design in Rust is about providing clear, safe, and idiomatic ways to create valid instances of your types.
+
+I hope you have learned something from this blog post!
+*Seeya!*
+
+
+## Other Idea that don't work...
+
+It is not possible to unify the `set_age` and `with_age` functions (and it is overkill):
 
 ```rs
 pub trait SetAge
