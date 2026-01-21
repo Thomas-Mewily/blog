@@ -28,6 +28,30 @@ Primitive types like integers or floats already have a native syntax for constru
 
 - **Placement** : In C++, the constructor also determines where in memory the object is initialized.
 
+
+## Move Semantic: Copy and Clone
+
+In Rust, there are two traits that can be automatically implemented for a type: `Clone` and `Copy`. I don't want to enter to much details about the difference between the two, but here are the main differences:
+- `Clone`: [Create a deep, independent copy of the value](<https://doc.rust.org/std/clone/trait.Clone.html>).
+
+- `Copy`: [Types whose values can be duplicated simply by copying bits.](<https://doc.rust.org/std/marker/trait.Copy.html>) is a marker trait that imply `Clone`.
+Type that have have a field that have an indirection layer in memory such as `Box`, `Vec`, `String`, `HashMap`, `HashSet`, etc can't be `Copy`, just `Clone`.
+
+
+`Copy` constructor are done implicitly, and are fast..
+
+```rs
+let value = 42;
+let value2 = value; // implicit copy
+```
+
+...and `Clone` constructor are done explicitly, and are slower because the object is generaly heavier to duplicate.
+
+```rs
+let value = "hello".to_owned(); // 1 memory allocation, can't be bit copied
+let value2 = value.clone(); // explicit clone, 2 memory allocations
+```
+
 ## Struct Instantiation in Rust
 
 ```rs
@@ -62,7 +86,7 @@ let alice = Person { name: "Alice".to_owned(), .. bobby };
 
 dbg!(&bobby.name); // ok because Alice constructor has her own name
 // dbg!(&bobby.hobbies); // error: borrow of moved value: `bobby.hobbies`. It was moved to Alice
-dbg!(&bobby.age); // ok, because the type `i32` is Copy, so it was copied, not moved
+dbg!(&bobby.age); // ok, because the type `i32` is `Copy`, so it was copied, not moved
 ```
 
 If you still want to be able to use bobby, one easy way is to clone it:
