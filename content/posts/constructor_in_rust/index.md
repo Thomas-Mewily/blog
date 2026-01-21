@@ -27,7 +27,7 @@ Primitive types like integers or floats already have a native syntax for constru
 - **Encapsulation** : It's about invariant and control. Deciding what value are valid or what relation the structure should hold. The goal is to avoid any invalid state, typically achieved through data hiding and encapsulation.
 
 - **Placement** : In C++, constructors can be used for placement initialization, allowing an object to be constructed at a specific memory location
-(e.g. on the stack or the heap). (Thanks to [Nabushika on reddit](<https://www.reddit.com/r/learnrust/comments/1qinygp/comment/o0w5ehd/>) for clarifying this sentence)
+(e.g. on the stack or the heap) using the placement new operator. (Thanks to [Nabushika on reddit](<https://www.reddit.com/r/learnrust/comments/1qinygp/comment/o0w5ehd/>) for clarifying this sentence)
 
 ## Move Semantic: Copy and Clone
 
