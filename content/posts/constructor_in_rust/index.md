@@ -422,7 +422,7 @@ If you have a structure with a lot of fields, it becomes barely usable:
 - And it's easy to make a mistake.
 
 
-And if, in the future, you want to add a new field, you will have to update all constructors. Imagine doing this as a library/crate developer, you can't ask every user to update their code because you decided to add a new field.
+And if, in the future, you want to add a new field, you will have to update all the caller. Imagine doing this as a library/crate developer, you can't ask every user to update their code because you decided to add a new field.
 
 Constructors in this case are not the best way to initialize it. It's better to use a builder pattern.
 
@@ -631,7 +631,7 @@ The inconvenience is that it is hard to know what we can pass to the `new` funct
 
 ### Merging the Builder and the Struct
 
-If the struct doesn't have a default value, we can avoid writing a builder and use the same struct for the builder!
+If the struct have a default value, we can avoid writing a builder and use the same struct for the builder!
 
 ```rs
 #[derive(Default)]
