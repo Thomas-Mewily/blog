@@ -1,11 +1,11 @@
 {
-    "idleHeartbeats": 14588,
-    "navigatingHeartbeats": 3031,
-    "totalCodingHeartbeats": 19125,
+    "idleHeartbeats": 14613,
+    "navigatingHeartbeats": 3086,
+    "totalCodingHeartbeats": 19531,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3591,
-        "markdown": 10936,
+        "markdown": 11342,
         "html": 3210,
         "scminput": 1066,
         "yaml": 17,
@@ -53,7 +53,7 @@
         "content/test/pentagone/index.md": 232,
         "git/scm0/input": 234,
         "layouts/shortcodes/qr.html": 92,
-        "content/posts/constructor_in_rust/index.md": 351,
+        "content/posts/constructor_in_rust/index.md": 757,
         "extension-output-mkxml.vscode-filesize-#1-filesize": 210
     }
 }
