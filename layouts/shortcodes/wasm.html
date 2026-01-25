@@ -1,6 +1,6 @@
 {{ $jsFile := .Get 0 | default "index.js" }}
-{{ $width := .Get "width" | default "800px" }}
-{{ $height := .Get "height" | default "600px" }}
+{{ $width := (.Get 1) | default (.Get "width") | default "800px" }}
+{{ $height := (.Get 2) | default (.Get "height") | default "600px" }}
 {{ $wasmFile := replace $jsFile ".js" "_bg.wasm" }}
 
 <div id="wasm-frame-{{ $jsFile }}" style="width: 100%; max-width: {{ $width }}; height: {{ $height }}; border: 2px solid #ddd; border-radius: 8px; margin: 20px auto; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); background: white; position: relative;">

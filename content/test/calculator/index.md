@@ -11,7 +11,7 @@ image = "thumbnail.png"
 
 This is a Rust calculator built with Iced UI running in WebAssembly.
 
-{{< wasm "iced_test-d2cc32930241cf04.js" >}}
+{{< wasm "iced_test-d2cc32930241cf04.js" "360px" "480px" >}}
 
 ## About
 
