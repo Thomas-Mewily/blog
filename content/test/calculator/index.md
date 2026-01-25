@@ -12,11 +12,11 @@ image = "thumbnail.png"
 <div id="calculator-frame" style="width: 400px; height: 500px; border: 2px solid #ddd; border-radius: 8px; margin: 20px auto; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); background: white;"></div>
 
 <script type="module">
-    import init, * as bindings from './iced_test-7afbea151ae2bbad.js';
+    import init, * as bindings from './dist/iced_test-d2cc32930241cf04.js';
 
     // Initialize calculator immediately
     try {
-        const wasm = await init({ module_or_path: './iced_test-7afbea151ae2bbad_bg.wasm' });
+        const wasm = await init({ module_or_path: './dist/iced_test-d2cc32930241cf04_bg.wasm' });
         window.wasmBindings = bindings;
         dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
