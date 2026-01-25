@@ -35,3 +35,4 @@ image = "thumbnail.png"
 </script>
 
 This is a Rust calculator built with Iced UI running in WebAssembly.
+Code source at https://github.com/Thomas-Mewily/ui_calculator .

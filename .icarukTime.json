@@ -1,13 +1,13 @@
 {
-    "idleHeartbeats": 15245,
-    "navigatingHeartbeats": 3487,
-    "totalCodingHeartbeats": 20838,
+    "idleHeartbeats": 15631,
+    "navigatingHeartbeats": 3616,
+    "totalCodingHeartbeats": 21070,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3790,
-        "markdown": 12277,
-        "html": 3217,
-        "scminput": 1111,
+        "markdown": 12418,
+        "html": 3262,
+        "scminput": 1157,
         "yaml": 17,
         "plaintext": 169,
         "Log": 210
@@ -51,12 +51,12 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "git/scm0/input": 279,
+        "git/scm0/input": 325,
         "layouts/shortcodes/qr.html": 92,
         "content/posts/constructor_in_rust/index.md": 841,
         "extension-output-mkxml.vscode-filesize-#1-filesize": 210,
-        "content/test/calculator/index.md": 851,
+        "content/test/calculator/index.md": 992,
         "Untitled-1": 121,
-        "content/test/calculator/index.html": 7
+        "content/test/calculator/index.html": 52
     }
 }
