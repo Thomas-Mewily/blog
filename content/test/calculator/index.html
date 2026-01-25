@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iced_test - Iced</title>
+    <base href="/" />
+<link rel="modulepreload" href="/iced_test-7afbea151ae2bbad.js" crossorigin="anonymous" integrity="sha384-SQ7lnJftC/gepu76qQlEWlVU7ucPiO01Ii3Z0Kis58Vd/eErV/5EY9LFIFxDvV/F"><link rel="preload" href="/iced_test-7afbea151ae2bbad_bg.wasm" crossorigin="anonymous" integrity="sha384-ztTxHOzHJ50sSBSjswYsD4GO2ZmqU9axYu66OCrhleUAFTq9EkAkBS3ScqOFxMnL" as="fetch" type="application/wasm"></head>
+<body>
+
+<script type="module">
+import init, * as bindings from '/iced_test-7afbea151ae2bbad.js';
+const wasm = await init({ module_or_path: '/iced_test-7afbea151ae2bbad_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+</body>
+</html>

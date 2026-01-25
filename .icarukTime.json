@@ -1,20 +1,20 @@
 {
-    "idleHeartbeats": 14722,
-    "navigatingHeartbeats": 3148,
-    "totalCodingHeartbeats": 19615,
+    "idleHeartbeats": 15080,
+    "navigatingHeartbeats": 3374,
+    "totalCodingHeartbeats": 20378,
     "languageHeartbeats": {
         "jsonc": 47,
-        "toml": 3591,
-        "markdown": 11426,
+        "toml": 3790,
+        "markdown": 11824,
         "html": 3210,
-        "scminput": 1066,
+        "scminput": 1111,
         "yaml": 17,
-        "plaintext": 48,
+        "plaintext": 169,
         "Log": 210
     },
     "fileHeartbeats": {
         ".vscode/settings.json": 47,
-        "hugo.toml": 3419,
+        "hugo.toml": 3618,
         "content/posts/my-first-post.md": 2648,
         "content/about.md": 789,
         "layouts/_default/single.html": 57,
@@ -51,9 +51,11 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "git/scm0/input": 234,
+        "git/scm0/input": 279,
         "layouts/shortcodes/qr.html": 92,
         "content/posts/constructor_in_rust/index.md": 841,
-        "extension-output-mkxml.vscode-filesize-#1-filesize": 210
+        "extension-output-mkxml.vscode-filesize-#1-filesize": 210,
+        "content/test/calculator/index.md": 398,
+        "Untitled-1": 121
     }
 }
