@@ -7,6 +7,7 @@ tags = ["rust", "wgpu", "winit"]
 categories = ["rust"]
 description = "A triangle. That it. Made in rust with winit and wgpu"
 image = "thumbnail.png"
+layout = "wasm"
 +++
 
 ## About
