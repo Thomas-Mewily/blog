@@ -7,12 +7,11 @@ tags = ["rust", "ui"]
 categories = ["rust"]
 description = "Just a simple calculator made with Rust + Iced"
 image = "thumbnail.png"
-layout = "wasm"
-wasm_js = "iced_test-d2cc32930241cf04.js"
-wasm_wasm = "iced_test-d2cc32930241cf04_bg.wasm"
 +++
 
 This is a Rust calculator built with Iced UI running in WebAssembly.
+
+{{< wasm "iced_test-d2cc32930241cf04.js" >}}
 
 ## About
 

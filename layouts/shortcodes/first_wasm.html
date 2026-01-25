@@ -1,0 +1,161 @@
+{{ $jsFile := .Get 0 | default "index.js" }}
+{{ $wasmFile := replace $jsFile ".js" "_bg.wasm" }}
+
+<!-- Full-screen WASM container -->
+<div id="wasm-fullscreen-{{ $jsFile }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 9999; display: none;">
+  <div id="wasm-loading-{{ $jsFile }}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #fff;">
+    <div style="font-size: 24px; margin-bottom: 20px;">Loading WebAssembly...</div>
+    <div style="width: 200px; height: 8px; background: #333; border-radius: 4px; margin: 0 auto; overflow: hidden;">
+      <div id="wasm-progress-{{ $jsFile }}" style="width: 0%; height: 100%; background: #4CAF50; transition: width 0.3s ease;"></div>
+    </div>
+    <div style="margin-top: 20px;">
+      <button id="wasm-close-{{ $jsFile }}" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Launch button -->
+<div style="text-align: center; margin: 40px 0;">
+  <button id="wasm-launch-{{ $jsFile }}" style="padding: 15px 30px; font-size: 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+    Launch Fullscreen
+  </button>
+</div>
+
+<script type="module">
+  (function() {
+    const wasmPath = './dist';
+    const jsFile = wasmPath + '/{{ $jsFile }}';
+    const wasmFile = wasmPath + '/{{ $wasmFile }}';
+    const fullscreenId = 'wasm-fullscreen-{{ $jsFile }}';
+    const loadingId = 'wasm-loading-{{ $jsFile }}';
+    const progressId = 'wasm-progress-{{ $jsFile }}';
+    const launchId = 'wasm-launch-{{ $jsFile }}';
+    const closeId = 'wasm-close-{{ $jsFile }}';
+    
+    let wasmInitialized = false;
+    
+    // Launch button click handler
+    document.getElementById(launchId).addEventListener('click', async () => {
+      const fullscreenDiv = document.getElementById(fullscreenId);
+      fullscreenDiv.style.display = 'block';
+      
+      if (!wasmInitialized) {
+        await loadWasm();
+        wasmInitialized = true;
+      }
+    });
+    
+    // Close button click handler
+    document.getElementById(closeId).addEventListener('click', () => {
+      const fullscreenDiv = document.getElementById(fullscreenId);
+      fullscreenDiv.style.display = 'none';
+    });
+    
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const fullscreenDiv = document.getElementById(fullscreenId);
+        if (fullscreenDiv.style.display === 'block') {
+          fullscreenDiv.style.display = 'none';
+        }
+      }
+    });
+    
+    function loadWasm() {
+      return new Promise((resolve, reject) => {
+        // Simulate loading progress
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += Math.random() * 30;
+          if (progress > 90) progress = 90;
+          const progressBar = document.getElementById(progressId);
+          if (progressBar) {
+            progressBar.style.width = progress + '%';
+          }
+        }, 200);
+        
+        import(jsFile)
+          .then(module => {
+            const init = module.default || module.init;
+            if (typeof init === 'function') {
+              return init({ module_or_path: wasmFile });
+            } else {
+              throw new Error('No init function found');
+            }
+          })
+          .then(wasm => {
+            clearInterval(progressInterval);
+            const progressBar = document.getElementById(progressId);
+            if (progressBar) {
+              progressBar.style.width = '100%';
+            }
+            
+            // Hide loading and show WASM content
+            setTimeout(() => {
+              const loading = document.getElementById(loadingId);
+              const fullscreenDiv = document.getElementById(fullscreenId);
+              
+              // Move any canvas or content created by WASM into our fullscreen div
+              const canvas = document.querySelector('canvas');
+              if (canvas && fullscreenDiv) {
+                // Style canvas for fullscreen
+                canvas.style.width = '100vw';
+                canvas.style.height = '100vh';
+                canvas.style.display = 'block';
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.margin = '0';
+                canvas.style.padding = '0';
+                
+                fullscreenDiv.appendChild(canvas);
+              }
+              
+              // Hide loading indicator
+              if (loading) {
+                loading.style.display = 'none';
+              }
+              
+              // Dispatch event for WASM applications that listen for it
+              dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+              resolve(wasm);
+            }, 500);
+          })
+          .catch(error => {
+            clearInterval(progressInterval);
+            console.error('Failed to load WASM:', error);
+            showError('Failed to load WebAssembly: ' + error.message);
+            reject(error);
+          });
+      });
+    }
+    
+    function showError(message) {
+      const loading = document.getElementById(loadingId);
+      if (loading) {
+        loading.innerHTML = `
+          <div style="color: #ff6b6b; text-align: center; padding: 20px;">
+            <div style="font-size: 18px; margin-bottom: 10px;">❌ ${message}</div>
+            <div style="font-size: 14px; color: #ccc; margin-bottom: 20px;">Please check the browser console for more details.</div>
+            <button onclick="document.getElementById('${fullscreenId}').style.display='none'" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Close
+            </button>
+          </div>
+        `;
+      }
+    }
+  })();
+</script>
+
+<style>
+  #wasm-launch-{{ $jsFile }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  #wasm-launch-{{ $jsFile }}:active {
+    transform: translateY(0);
+  }
+</style>

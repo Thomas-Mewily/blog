@@ -7,9 +7,6 @@ tags = ["rust", "wgpu", "winit"]
 categories = ["rust"]
 description = "A pentagone. You can rotate it. Made in rust with winit and wgpu"
 image = "thumbnail.png"
-layout = "wasm"
-wasm_js = "wgpu_test.js"
-wasm_wasm = "wgpu_test_bg.wasm"
 +++
 
 ## About
@@ -18,3 +15,7 @@ A simple pentagone rendered using [WGPU](https://crates.io/crates/wgpu) and [Win
 You can rotate/zoom it using the arrow keys or the WASM.
 
 The code is based on [the Chapter 6 of Learn WGPU by Sotrh : Uniforms](https://github.com/sotrh/learn-wgpu/tree/master/code/beginner/tutorial6-uniforms).
+
+## Run
+
+{{< first_wasm "wgpu_test.js" >}}
