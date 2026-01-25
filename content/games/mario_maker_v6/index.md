@@ -9,7 +9,6 @@ categories = ["scratch", "game"]
 description = "A Mario Maker like game where you can create and share your level"
 image = "thumbnail.png"
 scratch_url = "https://scratch.mit.edu/projects/218481168/"
-turbowarp_url = "https://turbowarp.org/218481168"
 +++
 
 

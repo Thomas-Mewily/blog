@@ -24,15 +24,25 @@
       
       <!-- Scratch links -->
       {{ with .Params.scratch_url }}
-      <div class="my-4 flex gap-3 flex-wrap">
-        <a href="{{ . }}" target="_blank" rel="noopener" class="inline-block px-4 py-2 bg-FF6B6B text-white rounded hover:bg-ee5a52 transition-colors font-semibold">
-          View on Scratch
+      <div class="my-4 flex gap-4 flex-wrap">
+        <a href="{{ . }}" target="_blank" rel="noopener" class="inline-flex items-center gap-3 px-6 py-3 bg-FF6B6B text-white rounded hover:bg-ee5a52 transition-colors font-semibold text-lg">
+          Play on Scratch
+          <img src="{{ "images/logo/scratch.svg" | relURL }}" alt="Scratch" class="w-10 h-10 flex-shrink-0" style="display: block; object-fit: contain;">
         </a>
-        {{ with $.Params.turbowarp_url }}
-        <a href="{{ . }}" target="_blank" rel="noopener" class="inline-block px-4 py-2 bg-FF6B6B text-white rounded hover:bg-ee5a52 transition-colors font-semibold">
-          Open in TurboWarp
+        <a href="https://turbowarp.org/{{ . | replaceRE "^.*/" "" }}" target="_blank" rel="noopener" class="inline-flex items-center gap-3 px-6 py-3 bg-FF6B6B text-white rounded hover:bg-ee5a52 transition-colors font-semibold text-lg">
+          TurboWarp
+          <img src="{{ "images/logo/turbowarp.png" | relURL }}" alt="TurboWarp" class="w-6 h-6 flex-shrink-0" style="display: block; object-fit: contain;">
         </a>
-        {{ end }}
+        <div class="inline-flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-700 rounded">
+          {{ $data := . }}
+          {{ $size := "64x64" }}
+          {{ $alt := "QR Code" }}
+          {{ $class := "w-16 h-16 flex-shrink-0" }}
+          {{ $src := printf "https://api.qrserver.com/v1/create-qr-code/?size=%s&data=%s" ($size | urlquery) ($data | urlquery) }}
+          <div class="qr-container" onclick="toggleQrFullscreen(this.querySelector('img'), 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data={{ $data | urlquery }}')">
+            <img src="{{ $src }}" alt="{{ $alt }}" class="{{ $class }}" style="display: block; cursor: pointer;" />
+          </div>
+        </div>
       </div>
       {{ end }}
       
