@@ -6,8 +6,8 @@ toc = false
 
 Hello I'm Thomas (alias Mewily), a French guy that enjoy doing these things when I have free time :
 
-- Programming : 
-    - Small **Interpreters**, Programming Langages, 
+- Programming :
+    - Small **Interpreters**, Programming Langages,
     - **Game engines**, Videos Game
 - Doing some **Pixel Art**
 - Playing some video game with friends
