@@ -21,7 +21,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
+  min-height: 25vh;
+  min-width: 25vw;
 }
 
 .pixel-art-main-image {
@@ -35,6 +36,8 @@
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+  min-width: 25vw;
+  min-height: 25vh;
 }
 
 .pixel-art-main-image:hover {
@@ -66,11 +69,14 @@
 
 @media (max-width: 768px) {
   .pixel-art-display {
-    min-height: 40vh;
+    min-height: 25vh;
+    min-width: 25vw;
   }
   
   .pixel-art-main-image {
     max-height: 85vh;
+    min-width: 25vw;
+    min-height: 25vh;
   }
 }
 </style>
