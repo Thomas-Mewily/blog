@@ -2,9 +2,11 @@
 {{ $alt := .Get "alt" | default .Page.Title }}
 {{ $class := .Get "class" | default "" }}
 
+{{ $imagePath := path.Join .Page.File.Dir $src }}
+
 <div class="pixel-art-display {{ $class }}">
   <img 
-    src="{{ $src | relURL }}" 
+    src="{{ $imagePath | relURL }}" 
     alt="{{ $alt }}"
     class="pixel-art-main-image"
     style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
@@ -15,21 +17,24 @@
 <style>
 .pixel-art-display {
   width: 100%;
-  max-width: 100%;
   margin: 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 50vh;
 }
 
 .pixel-art-main-image {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 90vh;
   width: auto;
   height: auto;
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.2s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .pixel-art-main-image:hover {
@@ -60,8 +65,12 @@
 }
 
 @media (max-width: 768px) {
+  .pixel-art-display {
+    min-height: 40vh;
+  }
+  
   .pixel-art-main-image {
-    max-height: 60vh;
+    max-height: 85vh;
   }
 }
 </style>

@@ -9,7 +9,8 @@
     <div>
       <a href="{{ .RelPermalink }}">
         {{ if .Params.image }}
-          <img class="w-full" src="{{ .Params.image | relURL }}" alt="{{ .Title }}" style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;">
+          {{ $imagePath := path.Join .Page.File.Dir .Params.image }}
+          <img class="w-full" src="{{ $imagePath | relURL }}" alt="{{ .Title }}" style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;">
         {{ end }}
       </a>
     </div>

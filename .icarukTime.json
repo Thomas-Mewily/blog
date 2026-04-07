@@ -1,13 +1,13 @@
 {
-    "idleHeartbeats": 19269,
-    "navigatingHeartbeats": 3895,
-    "totalCodingHeartbeats": 22493,
+    "idleHeartbeats": 19569,
+    "navigatingHeartbeats": 3898,
+    "totalCodingHeartbeats": 22562,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3790,
-        "markdown": 13409,
+        "markdown": 13431,
         "html": 3262,
-        "scminput": 1492,
+        "scminput": 1539,
         "yaml": 17,
         "plaintext": 266,
         "Log": 210
@@ -51,7 +51,7 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "git/scm0/input": 660,
+        "git/scm0/input": 707,
         "layouts/shortcodes/qr.html": 92,
         "content/posts/constructor_in_rust/index.md": 841,
         "extension-output-mkxml.vscode-filesize-#1-filesize": 210,
@@ -59,6 +59,6 @@
         "Untitled-1": 121,
         "content/test/calculator/index.html": 52,
         "/media/mewily/Me/blog/content/test/calculator/index.md.git": 97,
-        "content/pixel_art/eggman/index.md": 263
+        "content/pixel_art/eggman/index.md": 285
     }
 }
