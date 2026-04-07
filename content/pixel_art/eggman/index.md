@@ -5,7 +5,7 @@ description = "Dr Eggman from Sonic"
 image = "image.png"
 +++
 
-![Eggman](image.png)
+{{< pixel_art src="image.png" alt="Eggman" >}}
 
 The Dr Eggman from Sonic.
 

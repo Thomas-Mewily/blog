@@ -5,7 +5,7 @@ description = "An armed guard pixel character."
 image = "image.gif"
 +++
 
-![Armed Guard](image.gif)
+{{< pixel_art src="image.gif" alt="Armed Guard" >}}
 
 An armed guard
 

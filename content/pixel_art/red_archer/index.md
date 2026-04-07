@@ -5,7 +5,7 @@ description = "A red archer."
 image = "image.png"
 +++
 
-![Red Archer](image.png)
+{{< pixel_art src="image.png" alt="Red Archer" >}}
 
 A red archer
 

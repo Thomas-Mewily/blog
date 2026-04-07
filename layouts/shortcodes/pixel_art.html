@@ -1,0 +1,99 @@
+{{ $src := .Get "src" | default "image.png" }}
+{{ $alt := .Get "alt" | default .Page.Title }}
+{{ $class := .Get "class" | default "" }}
+
+<div class="pixel-art-display {{ $class }}">
+  <img 
+    src="{{ $src | relURL }}" 
+    alt="{{ $alt }}"
+    class="pixel-art-main-image"
+    style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
+    onclick="openFullscreen(this)"
+  >
+</div>
+
+<style>
+.pixel-art-display {
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pixel-art-main-image {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.pixel-art-main-image:hover {
+  transform: scale(1.02);
+}
+
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.fullscreen-image {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+@media (max-width: 768px) {
+  .pixel-art-main-image {
+    max-height: 60vh;
+  }
+}
+</style>
+
+<script>
+function openFullscreen(img) {
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'fullscreen-overlay';
+  
+  // Create fullscreen image
+  const fullscreenImg = document.createElement('img');
+  fullscreenImg.src = img.src;
+  fullscreenImg.alt = img.alt;
+  fullscreenImg.className = 'fullscreen-image';
+  
+  overlay.appendChild(fullscreenImg);
+  document.body.appendChild(overlay);
+  
+  // Close on click
+  overlay.addEventListener('click', function() {
+    document.body.removeChild(overlay);
+  });
+  
+  // Close on escape key
+  document.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') {
+      if (document.body.contains(overlay)) {
+        document.body.removeChild(overlay);
+      }
+      document.removeEventListener('keydown', escHandler);
+    }
+  });
+}
+</script>

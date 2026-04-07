@@ -5,7 +5,7 @@ description = "A platformer hero, Larry"
 image = "image.png"
 +++
 
-![Larry](image.png)
+{{< pixel_art src="image.png" alt="Larry" >}}
 
 A platformer hero, Larry
 
