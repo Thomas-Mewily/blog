@@ -1,0 +1,137 @@
+{{ $pixelArtBasePath := "content/pixel_art" }}
+{{ $pixelArtPath := $pixelArtBasePath }}
+
+{{ $dirs := readDir $pixelArtPath }}
+{{ $pixelArtFolders := slice }}
+{{ range $dirs }}
+    {{ if .IsDir }}
+        {{ $pixelArtFolders = $pixelArtFolders | append . }}
+    {{ end }}
+{{ end }}
+
+<div class="pixel-art-grid">
+    {{ range $pixelArtFolders }}
+        {{ $folderName := .Name }}
+        {{ $folderPath := path.Join $pixelArtPath $folderName }}
+        {{ $files := readDir $folderPath }}
+        
+        {{ $imageFile := "" }}
+        {{ range $files }}
+            {{ if or (eq .Name "image.png") (eq .Name "image.jpg") (eq .Name "image.gif") (eq .Name "image.jpeg") }}
+                {{ $imageFile = .Name }}
+            {{ end }}
+        {{ end }}
+        
+        {{ if $imageFile }}
+            {{ $indexPath := path.Join "pixel_art" $folderName "index.md" }}
+            {{ $indexPage := site.GetPage $indexPath }}
+            
+            <div class="pixel-art-item">
+                <a href="{{ $indexPage.RelPermalink }}" class="pixel-art-link">
+                    <div class="pixel-art-image-container">
+                        <img src="{{ path.Join "pixel_art" $folderName $imageFile | relURL }}" 
+                             alt="{{ $folderName }} pixel art"
+                             class="pixel-art-image"
+                             style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;">
+                    </div>
+                    <div class="pixel-art-title">
+                        {{ if $indexPage }}
+                            {{ $indexPage.Title }}
+                        {{ else }}
+                            {{ $folderName }}
+                        {{ end }}
+                    </div>
+                </a>
+            </div>
+        {{ end }}
+    {{ end }}
+</div>
+
+<style>
+.pixel-art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pixel-art-item {
+    background: rgba(249, 250, 251, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(229, 231, 235, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+:is(.dark *) .pixel-art-item {
+    background: rgba(31, 41, 55, 0.8);
+    border-color: rgba(75, 85, 99, 0.6);
+}
+
+.pixel-art-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+:is(.dark *) .pixel-art-item:hover {
+    background: rgba(55, 65, 81, 0.9);
+}
+
+.pixel-art-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.pixel-art-image-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+}
+
+:is(.dark *) .pixel-art-image-container {
+    background: rgba(17, 24, 39, 0.5);
+    border-bottom-color: rgba(75, 85, 99, 0.3);
+}
+
+.pixel-art-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.pixel-art-title {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #374151;
+    background: rgba(249, 250, 251, 0.6);
+}
+
+:is(.dark *) .pixel-art-title {
+    color: #e5e7eb;
+    background: rgba(31, 41, 55, 0.6);
+}
+
+@media (max-width: 768px) {
+    .pixel-art-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .pixel-art-image-container {
+        height: 150px;
+    }
+}
+</style>
