@@ -1,13 +1,13 @@
 {
-    "idleHeartbeats": 17959,
-    "navigatingHeartbeats": 3722,
-    "totalCodingHeartbeats": 21997,
+    "idleHeartbeats": 19223,
+    "navigatingHeartbeats": 3895,
+    "totalCodingHeartbeats": 22373,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3790,
-        "markdown": 12966,
+        "markdown": 13289,
         "html": 3262,
-        "scminput": 1439,
+        "scminput": 1492,
         "yaml": 17,
         "plaintext": 266,
         "Log": 210
@@ -43,7 +43,7 @@
         "content/projects/conkestator/my-first-project.md": 296,
         "content/projects/conkestator/index.md": 457,
         "content/projects/hexga.md": 280,
-        "content/pixel_art.md": 359,
+        "content/pixel_art.md": 539,
         "content/games/conkestator/index.md": 17,
         "HELP.md": 109,
         "content/games/triangle/index.html": 64,
@@ -51,13 +51,14 @@
         "content/test/triangle/index.md": 264,
         "content/test/pentagone/index.html": 45,
         "content/test/pentagone/index.md": 232,
-        "git/scm0/input": 607,
+        "git/scm0/input": 660,
         "layouts/shortcodes/qr.html": 92,
         "content/posts/constructor_in_rust/index.md": 841,
         "extension-output-mkxml.vscode-filesize-#1-filesize": 210,
         "content/test/calculator/index.md": 1540,
         "Untitled-1": 121,
         "content/test/calculator/index.html": 52,
-        "/media/mewily/Me/blog/content/test/calculator/index.md.git": 97
+        "/media/mewily/Me/blog/content/test/calculator/index.md.git": 97,
+        "content/pixel_art/eggman/index.md": 143
     }
 }
