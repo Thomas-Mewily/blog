@@ -2,7 +2,10 @@
 title = "Larry"
 date = "2024-02-12"
 description = "A platformer hero, Larry"
+image = "image.png"
 +++
+
+![Larry](image.png)
 
 A platformer hero, Larry
 

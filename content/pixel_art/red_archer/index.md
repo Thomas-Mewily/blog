@@ -2,7 +2,10 @@
 title = "Red Archer"
 date = "2024-02-12"
 description = "A red archer."
+image = "image.png"
 +++
+
+![Red Archer](image.png)
 
 A red archer
 

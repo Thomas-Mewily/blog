@@ -2,7 +2,10 @@
 title = "Armed Guard"
 date = "2024-02-12"
 description = "An armed guard pixel character."
+image = "image.gif"
 +++
+
+![Armed Guard](image.gif)
 
 An armed guard
 
