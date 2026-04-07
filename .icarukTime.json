@@ -1,11 +1,11 @@
 {
-    "idleHeartbeats": 17659,
-    "navigatingHeartbeats": 3720,
-    "totalCodingHeartbeats": 21940,
+    "idleHeartbeats": 17959,
+    "navigatingHeartbeats": 3722,
+    "totalCodingHeartbeats": 21997,
     "languageHeartbeats": {
         "jsonc": 47,
         "toml": 3790,
-        "markdown": 12909,
+        "markdown": 12966,
         "html": 3262,
         "scminput": 1439,
         "yaml": 17,
@@ -55,7 +55,7 @@
         "layouts/shortcodes/qr.html": 92,
         "content/posts/constructor_in_rust/index.md": 841,
         "extension-output-mkxml.vscode-filesize-#1-filesize": 210,
-        "content/test/calculator/index.md": 1483,
+        "content/test/calculator/index.md": 1540,
         "Untitled-1": 121,
         "content/test/calculator/index.html": 52,
         "/media/mewily/Me/blog/content/test/calculator/index.md.git": 97

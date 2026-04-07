@@ -16,11 +16,4 @@ This is a Rust calculator built with Iced UI running in WebAssembly.
 
 A simple calculator implemented in Rust using the Iced UI framework, compiled to WebAssembly for web deployment.
 
-## Features
-
-- Basic arithmetic operations (+, -, ×, ÷)
-- Clean, modern interface
-- Responsive design
-- WebAssembly performance
-
 Code source at https://github.com/Thomas-Mewily/ui_calculator.
